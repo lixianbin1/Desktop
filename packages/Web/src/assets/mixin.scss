@@ -1,0 +1,17 @@
+//全局变量
+$bgColor: #ccc;
+$gutter: 8,12,13,14,15,16,18,20,22,24,28,32,34,40,46,48,50,54,55,56,60;
+//混入样式
+@mixin flex($justify: space-between,$align:center,$wrap:nowrap){
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+  flex-wrap: $wrap;
+}
+//循环指令
+@each $value in $gutter{
+  div{
+    .w-#{$value}\px{width: #{$value + 'px'} }
+    .f-#{$value}\px{font-size: #{$value + 'px'} }
+  }
+}

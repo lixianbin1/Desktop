@@ -1,0 +1,13 @@
+login:
+  Welcome: 欢迎
+  Account: 账号
+  Credit: 公司
+  UserID: 用户ID
+  Password: 用户密码
+  Login: 登录
+  FontTitle: ©行业协会XXXXXX。保留所有权利
+  UserName: 用户名
+menu:
+  PageOne: 页面一
+  PageTwo: 页面二
+  PageTwoInfo: 详情
