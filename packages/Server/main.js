@@ -86,9 +86,10 @@ app.use(express.json());
 const __HomePath = process.env.XD_HomePath
 app.use(express.static(path.join(__HomePath)));
 
+//路由接口
+app.use('/user', require('./interface/userapi.js'));
 
-// const sqlite3 = require('sqlite3').verbose();
-// console.log(sqlite3)
+
 
 // 启动Express服务器
 const http = require('http');

@@ -1,12 +1,11 @@
 {
-  "name": "Desktop",
+  "name": "desktop",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "web": "cd ./packages/Web && pnpm dev",
-    "server": "cd ./packages/Server && pnpm dev",
-    "dev": "pnpm web && pnpm server"
+    "server": "cd ./packages/Server && pnpm dev"
   },
   "keywords": [],
   "author": "",

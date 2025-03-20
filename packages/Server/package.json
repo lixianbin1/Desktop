@@ -2,20 +2,27 @@
   "name": "server",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
-    "dev": "node ./main.js --port=3000"
+    "start": "node ./main.js --port=3000",
+    "dev": "pm2 start ./main.js --name Server --watch --ignore-watch './db' -- --port=3000",
+    "list": "pm2 list",
+    "logs": "pm2 logs",
+    "stop": "pm2 stop Server",
+    "restart": "pm2 restart Server",
+    "delete": "pm2 delete all"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@seald-io/nedb": "^4.1.1",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.2",
     "generic-pool": "^3.9.0",
     "jsonwebtoken": "^9.0.2",
-    "nedb": "^1.8.0",
     "pm2": "^5.4.3"
   }
 }
