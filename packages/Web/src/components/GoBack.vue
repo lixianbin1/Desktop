@@ -1,8 +1,9 @@
 <template>
-  <button type="button" @click="goBack">Back</button>
+  <el-button type="warning"  @click="goBack">返回</el-button>
 </template>
-<script setup lang="ts">
-const router = useRouter()
+<script setup >
+
+import { router } from '@/modules/router';
 const goBack=()=>{
   router.back()
 }

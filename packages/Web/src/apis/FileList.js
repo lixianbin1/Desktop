@@ -18,3 +18,35 @@ export const FileInfo = function (data){
     data
   })
 }
+
+export const FileUpload = function (data){
+  return require({
+    url: `${network}/${auto}/file/update`,
+    method: 'post',
+    data
+  })
+}
+
+export const FileDelete = function (data){
+  return require({
+    url: `${network}/${auto}/file/delete`,
+    method: 'post',
+    data
+  })
+}
+
+export const FilesDelete = function (data){
+  return require({
+    url: `${network}/${auto}/file/deleteDir`,
+    method: 'post',
+    data
+  })
+}
+
+export const FileCreate = function (data){
+  return require({
+    url: `${network}/${auto}/file/create`,
+    method: 'post',
+    data
+  })
+}

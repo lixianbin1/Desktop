@@ -2,7 +2,7 @@
 
 export const SignOut = ()=>{
   const {loginSwitch} = useGlobalState()
-  sessionStorage.removeItem('userToken')
+  localStorage.removeItem('userToken')
   loginSwitch()
   location.href = '/login'
 }

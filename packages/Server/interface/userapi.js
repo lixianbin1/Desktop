@@ -12,6 +12,8 @@ const userDB = new Nedb({
     autoload: true
 });
 
+const verification = require('../common/verification.js')
+
 // 注册
 router.post('/register', (req, res) => {
     const { username, password } = req.body;
@@ -77,19 +79,17 @@ router.post('/login', (req, res) => {
 })
 
 // 获取用户信息
-router.get('/userinfo', (req, res) => {
-    const token = req.headers.authorization;
-    if (!token) {
-        return res.json({
-            code: 401,
-            message: '未登录'
-        });
-    }
-    const decoded = jwt.verify(token, __SecretKey);
+router.get('/userinfo',verification, (req, res) => {
+    const decoded = req.user
     userDB.findOne({ _id: decoded.id }, (err, doc) => {
         if (err) {
-            return res.json({})
+            return res.json({
+                code: 404,
+                message: '未找到该用户信息'
+            })
         }
+        delete doc.password
+        delete doc.tokenVersion
         res.json({
             code: 200,
             data: doc
@@ -98,16 +98,10 @@ router.get('/userinfo', (req, res) => {
 })
 
 // 退出登录
-router.post('/logout', (req, res) => {
-    const token = req.headers.authorization;
-    if (!token) {
-        return res.json({
-            code: 401,
-            message: '未登录'
-        });
-    }
-    const newTokenVersion = doc.tokenVersion + 1;
-    userDB.update({ _id: doc._id }, { $set: { tokenVersion: newTokenVersion } }, {}, (err, numReplaced) =>{
+router.post('/logout',verification, (req, res) => {
+    const decoded = req.user
+    const newTokenVersion = decoded.tokenVersion + 1;
+    userDB.update({ _id: decoded._id }, { $set: { tokenVersion: newTokenVersion } }, {}, (err, numReplaced) =>{
         if (err) {
             return res.json({
                 code: 500,

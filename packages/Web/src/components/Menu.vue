@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup >
 const isCollapse = ref(true) // 控制menu的展开和收缩
 // 用户信息显示
 const isShow = reactive({

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup >
 const { availableLocales, locale } = useI18n()
 const toggleLocales = () => {
   const locales = availableLocales

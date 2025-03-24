@@ -1,6 +1,7 @@
-import express from 'express';
-import fs from 'fs';
-import path from 'path';
+const express = require('express');
+const fs = require('fs');
+const path = require('path');
+
 
 const router = express.Router();
 const __HomePath = process.env.XD_HomePath
@@ -28,13 +29,11 @@ function fileType(name, isDirectory) {
     }
 }
 
-
-
-
 // 读取目录
 router.get('/list',(req, res) => {
     const {name} = req.query 
     const direPath = path.join(__HomePath, name || "");
+    console.log(direPath)
     try {
         const stats = fs.statSync(direPath);
         if (!stats.isDirectory()) {
@@ -57,7 +56,7 @@ router.get('/list',(req, res) => {
                     name: file,
                     type: fileType(file, fileStats.isDirectory()),
                     size: filesize(fileStats),
-                    path: name,
+                    path: name || '',
                     atime: new Date(stats.atime).toLocaleString(),
                     mtime: new Date(stats.mtime).toLocaleString(),
                     ctime: new Date(stats.ctime).toLocaleString(),
@@ -113,13 +112,16 @@ router.post('/',(req, res) => {
                 message: '读取文件失败'
             });
         }
-        res.type(path.extname(filename)).send(data);
+        res.type(path.extname(filename)).send({
+            code: 200,
+            data
+        });
     });
 })
 
-// 创建文件
+// 创建文件 or 文件夹
 router.post('/create',(req, res) => {
-    const {filepath,filename,centent} = req.body
+    const {filepath = '',filename,centent} = req.body
     if(!filename){
         return res.json({
             code: 400,
@@ -134,19 +136,40 @@ router.post('/create',(req, res) => {
             message: '已存在同名文件'
         });
     }
-
-    fs.writeFile(filePath, centent || "", (err) => {
-        if(err) {
+    if(filename.split('.').length > 1 && filename.split('.').length < 3){
+        // 创建文件
+        fs.writeFile(filePath, centent || "", (err) => {
+            if(err) {
+                return res.json({
+                    code: 500,
+                    message: '创建文件失败'
+                });
+            }
             return res.json({
-                code: 500,
-                message: '创建文件失败'
+                code: 200,
+                message: '创建文件成功'
             });
-        }
-        return res.json({
-            code: 200,
-            message: '创建文件成功'
+        })
+    }else if(filename.split('.').length === 1){
+        // 创建文件夹
+        fs.mkdir(filePath,(err) => {
+            if(err) {
+                return res.json({
+                    code: 500,
+                    message: '创建文件夹失败'
+                });
+            }
+            return res.json({
+                code: 200,
+                message: '创建文件夹成功'
+            });
         });
-    })
+    }else{
+        return res.json({
+            code: 400,
+            message: '文件格式不正确'
+        });   
+    }
 })
 
 // 删除文件
@@ -177,6 +200,25 @@ router.post('/delete',(req, res) => {
             message: '删除文件成功'
         });
     })
+})
+
+// 删除文件夹
+router.post('/deleteDir',(req, res) => {
+    const {filepath} = req.body
+    const filePath = path.join(__HomePath, filepath)
+    fs.rm(filePath,{ recursive: true }, (err) => {
+        if(err) {
+            console.log(err)
+            return res.json({
+                code: 500,
+                message: '删除文件夹失败'
+            });
+        }
+        return res.json({
+            code: 200,
+            message: '删除文件夹成功'
+        });
+    });
 })
 
 // 移动文件
@@ -357,4 +399,4 @@ router.post('/rename',(req, res) => {
     })
 })
 
-export default router;
+module.exports = router;

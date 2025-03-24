@@ -14,9 +14,6 @@ importers:
       axios:
         specifier: ^1.7.7
         version: 1.8.3
-      cors:
-        specifier: ^2.8.5
-        version: 2.8.5
       element-plus:
         specifier: ^2.9.6
         version: 2.9.6(vue@3.5.13)
@@ -45,6 +42,9 @@ importers:
         specifier: ^4.4.5
         version: 4.5.0(vue@3.5.13)
     devDependencies:
+      '@iconify-json/carbon':
+        specifier: ^1.2.8
+        version: 1.2.8
       '@iconify-json/ep':
         specifier: ^1.2.1
         version: 1.2.2
@@ -268,6 +268,9 @@ packages:
 
   '@floating-ui/utils@0.2.9':
     resolution: {integrity: sha512-MDWhGtE+eHw5JW7lq4qhc5yRLS11ERl1c7Z6Xd0a58DozHES6EnNNwUWbMiG4J9Cgj053Bhk8zvlhFYKVhULwg==}
+
+  '@iconify-json/carbon@1.2.8':
+    resolution: {integrity: sha512-6xh4YiFBz6qoSnB3XMe23WvjTJroDFXB17J1MbiT7nATFe+70+em1acRXr8hgP/gYpwFMHFc4IvjA/IPTPnTzg==}
 
   '@iconify-json/ep@1.2.2':
     resolution: {integrity: sha512-/IH1GjQKH5uK7lQAOjwPxdjkU98OWUWnHYCdg/EkeebBKEteotaOMeEz5pR1egqMcI7zPFdFBTcGyCHla1ddQw==}
@@ -680,10 +683,6 @@ packages:
   confbox@0.2.1:
     resolution: {integrity: sha512-hkT3yDPFbs95mNCy1+7qNKC6Pro+/ibzYxtM2iqEigpf0sVw+bg4Zh9/snjsBcf990vfIsg5+1U7VyiyBb3etg==}
 
-  cors@2.8.5:
-    resolution: {integrity: sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==}
-    engines: {node: '>= 0.10'}
-
   csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
 
@@ -986,10 +985,6 @@ packages:
   normalize-wheel-es@1.2.0:
     resolution: {integrity: sha512-Wj7+EJQ8mSuXr2iWfnujrimU35R2W4FAErEyTmJoJ7ucwTn2hOUSsRehMb5RSYkxXGTM7Y9QpvPmp++w5ftoJw==}
 
-  object-assign@4.1.1:
-    resolution: {integrity: sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==}
-    engines: {node: '>=0.10.0'}
-
   package-manager-detector@0.2.11:
     resolution: {integrity: sha512-BEnLolu+yuz22S56CU1SUKq3XC3PkwD5wv4ikR4MfGvnRVcmzXR9DwSlW2fEamyTPyXHomBJRzgapeuBvRNzJQ==}
 
@@ -1160,10 +1155,6 @@ packages:
     resolution: {integrity: sha512-1bmWv/G0xz45btPqSasgv4TUdTqCneyFfnrQJ3xgerGvfTC5aP/rpO4wJb5FItCZjaSw5+9FNBj2Tz6n9TLXYA==}
     peerDependencies:
       vue: ^3.0.0
-
-  vary@1.1.2:
-    resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
-    engines: {node: '>= 0.8'}
 
   vite-plugin-pages@0.32.5:
     resolution: {integrity: sha512-GY2JAt+4vZ4BqTtw+4CSUxPgYiqamrMRIzYk2AtJvQHeBoMlctsQW+tgCpKriUKINiKfi6NegbP07r1XrdxTWA==}
@@ -1408,6 +1399,10 @@ snapshots:
       '@floating-ui/utils': 0.2.9
 
   '@floating-ui/utils@0.2.9': {}
+
+  '@iconify-json/carbon@1.2.8':
+    dependencies:
+      '@iconify/types': 2.0.0
 
   '@iconify-json/ep@1.2.2':
     dependencies:
@@ -1815,11 +1810,6 @@ snapshots:
 
   confbox@0.2.1: {}
 
-  cors@2.8.5:
-    dependencies:
-      object-assign: 4.1.1
-      vary: 1.1.2
-
   csstype@3.1.3: {}
 
   dayjs@1.11.13: {}
@@ -2129,8 +2119,6 @@ snapshots:
 
   normalize-wheel-es@1.2.0: {}
 
-  object-assign@4.1.1: {}
-
   package-manager-detector@0.2.11:
     dependencies:
       quansync: 0.2.8
@@ -2341,8 +2329,6 @@ snapshots:
       '@vant/use': 1.6.0(vue@3.5.13)
       '@vue/shared': 3.5.13
       vue: 3.5.13
-
-  vary@1.1.2: {}
 
   vite-plugin-pages@0.32.5(@vue/compiler-sfc@3.5.13)(vite@6.2.2(sass@1.86.0)(yaml@2.7.0))(vue-router@4.5.0(vue@3.5.13)):
     dependencies:

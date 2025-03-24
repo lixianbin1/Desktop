@@ -1,6 +1,5 @@
 <template>
   <div id="login">
-    <Header />
     <el-main class="main">
       <div v-loading="state.loading" class="login_box">
         <el-form ref="loginRef" :model="state.form" :rules="useRules">
@@ -143,6 +142,10 @@ const onLogin = async () => {
 @media screen and (max-width: 1000px) {
   #login{
     .main{
+      position: relative;
+      justify-content: center;
+      align-items: center;
+      display: flex;
       .login_box{
         width: 100%;
         border: 0;

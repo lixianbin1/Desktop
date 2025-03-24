@@ -7,8 +7,10 @@
 export {}
 declare global {
   const EffectScope: typeof import('vue')['EffectScope']
-  const SignOut: typeof import('./common/index')['SignOut']
-  const adminList: typeof import('./stores/menu')['adminList']
+  const ElMessage: typeof import('element-plus/es')['ElMessage']
+  const ElMessageBox: typeof import('element-plus/es')['ElMessageBox']
+  const SignOut: typeof import('./common/index.js')['SignOut']
+  const adminList: typeof import('./stores/menu.js')['adminList']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
   const computed: typeof import('vue')['computed']
@@ -178,8 +180,8 @@ declare global {
   const useFullscreen: typeof import('@vueuse/core')['useFullscreen']
   const useGamepad: typeof import('@vueuse/core')['useGamepad']
   const useGeolocation: typeof import('@vueuse/core')['useGeolocation']
-  const useGlobalMenu: typeof import('./stores/GlobalState')['useGlobalMenu']
-  const useGlobalState: typeof import('./stores/GlobalState')['useGlobalState']
+  const useGlobalMenu: typeof import('./stores/GlobalState.js')['useGlobalMenu']
+  const useGlobalState: typeof import('./stores/GlobalState.js')['useGlobalState']
   const useI18n: typeof import('vue-i18n')['useI18n']
   const useId: typeof import('vue')['useId']
   const useIdle: typeof import('@vueuse/core')['useIdle']
@@ -192,7 +194,7 @@ declare global {
   const useLastChanged: typeof import('@vueuse/core')['useLastChanged']
   const useLink: typeof import('vue-router')['useLink']
   const useLocalStorage: typeof import('@vueuse/core')['useLocalStorage']
-  const useLocaleUser: typeof import('./stores/GlobalState')['useLocaleUser']
+  const useLocaleUser: typeof import('./stores/GlobalState.js')['useLocaleUser']
   const useMagicKeys: typeof import('@vueuse/core')['useMagicKeys']
   const useManualRefHistory: typeof import('@vueuse/core')['useManualRefHistory']
   const useMediaControls: typeof import('@vueuse/core')['useMediaControls']
@@ -266,7 +268,7 @@ declare global {
   const useToggle: typeof import('@vueuse/core')['useToggle']
   const useTransition: typeof import('@vueuse/core')['useTransition']
   const useUrlSearchParams: typeof import('@vueuse/core')['useUrlSearchParams']
-  const useUserInfo: typeof import('./stores/GlobalState')['useUserInfo']
+  const useUserInfo: typeof import('./stores/GlobalState.js')['useUserInfo']
   const useUserMedia: typeof import('@vueuse/core')['useUserMedia']
   const useVModel: typeof import('@vueuse/core')['useVModel']
   const useVModels: typeof import('@vueuse/core')['useVModels']
@@ -280,9 +282,9 @@ declare global {
   const useWindowFocus: typeof import('@vueuse/core')['useWindowFocus']
   const useWindowScroll: typeof import('@vueuse/core')['useWindowScroll']
   const useWindowSize: typeof import('@vueuse/core')['useWindowSize']
-  const userList: typeof import('./stores/menu')['userList']
-  const userStore: typeof import('./stores/index')['userStore']
-  const vBlur: typeof import('./common/directive')['vBlur']
+  const userList: typeof import('./stores/menu.js')['userList']
+  const userStore: typeof import('./stores/index.js')['userStore']
+  const vBlur: typeof import('./common/directive.js')['vBlur']
   const watch: typeof import('vue')['watch']
   const watchArray: typeof import('@vueuse/core')['watchArray']
   const watchAtMost: typeof import('@vueuse/core')['watchAtMost']
@@ -306,14 +308,17 @@ declare global {
   export type { Component, ComponentPublicInstance, ComputedRef, DirectiveBinding, ExtractDefaultPropTypes, ExtractPropTypes, ExtractPublicPropTypes, InjectionKey, PropType, Ref, MaybeRef, MaybeRefOrGetter, VNode, WritableComputedRef } from 'vue'
   import('vue')
 }
+
 // for vue template auto import
 import { UnwrapRef } from 'vue'
 declare module 'vue' {
   interface GlobalComponents {}
   interface ComponentCustomProperties {
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
-    readonly SignOut: UnwrapRef<typeof import('./common/index')['SignOut']>
-    readonly adminList: UnwrapRef<typeof import('./stores/menu')['adminList']>
+    readonly ElMessage: UnwrapRef<typeof import('element-plus/es')['ElMessage']>
+    readonly ElMessageBox: UnwrapRef<typeof import('element-plus/es')['ElMessageBox']>
+    readonly SignOut: UnwrapRef<typeof import('./common/index.js')['SignOut']>
+    readonly adminList: UnwrapRef<typeof import('./stores/menu.js')['adminList']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
@@ -483,8 +488,8 @@ declare module 'vue' {
     readonly useFullscreen: UnwrapRef<typeof import('@vueuse/core')['useFullscreen']>
     readonly useGamepad: UnwrapRef<typeof import('@vueuse/core')['useGamepad']>
     readonly useGeolocation: UnwrapRef<typeof import('@vueuse/core')['useGeolocation']>
-    readonly useGlobalMenu: UnwrapRef<typeof import('./stores/GlobalState')['useGlobalMenu']>
-    readonly useGlobalState: UnwrapRef<typeof import('./stores/GlobalState')['useGlobalState']>
+    readonly useGlobalMenu: UnwrapRef<typeof import('./stores/GlobalState.js')['useGlobalMenu']>
+    readonly useGlobalState: UnwrapRef<typeof import('./stores/GlobalState.js')['useGlobalState']>
     readonly useI18n: UnwrapRef<typeof import('vue-i18n')['useI18n']>
     readonly useId: UnwrapRef<typeof import('vue')['useId']>
     readonly useIdle: UnwrapRef<typeof import('@vueuse/core')['useIdle']>
@@ -497,7 +502,7 @@ declare module 'vue' {
     readonly useLastChanged: UnwrapRef<typeof import('@vueuse/core')['useLastChanged']>
     readonly useLink: UnwrapRef<typeof import('vue-router')['useLink']>
     readonly useLocalStorage: UnwrapRef<typeof import('@vueuse/core')['useLocalStorage']>
-    readonly useLocaleUser: UnwrapRef<typeof import('./stores/GlobalState')['useLocaleUser']>
+    readonly useLocaleUser: UnwrapRef<typeof import('./stores/GlobalState.js')['useLocaleUser']>
     readonly useMagicKeys: UnwrapRef<typeof import('@vueuse/core')['useMagicKeys']>
     readonly useManualRefHistory: UnwrapRef<typeof import('@vueuse/core')['useManualRefHistory']>
     readonly useMediaControls: UnwrapRef<typeof import('@vueuse/core')['useMediaControls']>
@@ -571,7 +576,7 @@ declare module 'vue' {
     readonly useToggle: UnwrapRef<typeof import('@vueuse/core')['useToggle']>
     readonly useTransition: UnwrapRef<typeof import('@vueuse/core')['useTransition']>
     readonly useUrlSearchParams: UnwrapRef<typeof import('@vueuse/core')['useUrlSearchParams']>
-    readonly useUserInfo: UnwrapRef<typeof import('./stores/GlobalState')['useUserInfo']>
+    readonly useUserInfo: UnwrapRef<typeof import('./stores/GlobalState.js')['useUserInfo']>
     readonly useUserMedia: UnwrapRef<typeof import('@vueuse/core')['useUserMedia']>
     readonly useVModel: UnwrapRef<typeof import('@vueuse/core')['useVModel']>
     readonly useVModels: UnwrapRef<typeof import('@vueuse/core')['useVModels']>
@@ -585,9 +590,9 @@ declare module 'vue' {
     readonly useWindowFocus: UnwrapRef<typeof import('@vueuse/core')['useWindowFocus']>
     readonly useWindowScroll: UnwrapRef<typeof import('@vueuse/core')['useWindowScroll']>
     readonly useWindowSize: UnwrapRef<typeof import('@vueuse/core')['useWindowSize']>
-    readonly userList: UnwrapRef<typeof import('./stores/menu')['userList']>
-    readonly userStore: UnwrapRef<typeof import('./stores/index')['userStore']>
-    readonly vBlur: UnwrapRef<typeof import('./common/directive')['vBlur']>
+    readonly userList: UnwrapRef<typeof import('./stores/menu.js')['userList']>
+    readonly userStore: UnwrapRef<typeof import('./stores/index.js')['userStore']>
+    readonly vBlur: UnwrapRef<typeof import('./common/directive.js')['vBlur']>
     readonly watch: UnwrapRef<typeof import('vue')['watch']>
     readonly watchArray: UnwrapRef<typeof import('@vueuse/core')['watchArray']>
     readonly watchAtMost: UnwrapRef<typeof import('@vueuse/core')['watchAtMost']>

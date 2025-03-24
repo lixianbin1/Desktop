@@ -1,34 +1,10 @@
 <template>
-  <div id="BoxList" style="height:100%">
+  <div id="BoxList">
     <div class="box">
-      <div class="box-title">
-        <h2>桌面查看</h2>
-      </div>
-      <div class="box-content">
-        <div class="content">
-          <img width="100%" height="100%" v-if="captureImg" :src="captureImg" alt=""></img>
-        </div>
-      </div>
+      <span>桌面查看</span>
     </div>
-
-    <div class="box">
-      <div class="box-title">
-        <h2>文件查看</h2>
-      </div>
-      <div class="box-content">
-        <div class="content" @click="goinfiles">
-          <div>
-            <p v-for="item in files.list" style="display: flex;justify-content: space-evenly;">
-              <span>{{item.name}}</span>
-              <span>{{item.type}}</span>
-              <span>{{item.size}}</span>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="box">
-      <div class="content"></div>
+    <div class="box" @click="goinfiles">
+      <span>文件查看</span>
     </div>
   </div>
 </template>
@@ -118,53 +94,29 @@ onBeforeUnmount(() => {
 });
 </script>
 
-<style>
+<style setup lang="scss">
 #BoxList{
-  padding: 0.05rem;
+  height: 100%;
+  margin: 0.3rem;
+  background: #fff;
+  border-radius: 0.1rem;
+  padding: 0.2rem;
+  display: flex;
+  justify-content: space-evenly;
   .box{
-    width: calc(50vw - 0.05rem);
-    float: left;
-    padding: 0.05rem;
-    box-sizing: border-box;
-    .box-title{
-      height: 0.4rem;
-      position: relative;
-      background: #8aadfb;
-      h2{
-        font-size: 0.3rem;
-        position: absolute;
-        left: 0.1em;
-      }
-    }
-    .box-content{
-      height: calc(50vw / 192* 108);
-      .content{
-        height: 100%;
-        background-color: #e5e5e5;
-        font-size: 0.2rem;
-      }
-      .success{background-color: green}
-      .error::before,
-      .error::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin: auto;
-        width: 0.2rem; /* 线条宽度 */
-        height: 50%; /* 线条高度 */
-        background-color: red; /* 线条颜色 */
-      }
-
-      .error::before {
-        transform: rotate(45deg); /* 旋转45度 */
-      }
-
-      .error::after {
-        transform: rotate(-45deg); /* 旋转-45度 */
-      }
+    height: 2rem;
+    width: 3rem;
+    line-height: 1rem;
+    margin-bottom: 0.1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 0.2rem;
+    background: #ccc;
+    box-shadow: 1px 1px 4px #000;
+    span{
+      font-size: 0.3rem;
     }
   }
 }

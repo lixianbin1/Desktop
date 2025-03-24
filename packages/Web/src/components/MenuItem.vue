@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup >
 
 const props = defineProps<{ data: any }>()
 const { t } = useI18n()
