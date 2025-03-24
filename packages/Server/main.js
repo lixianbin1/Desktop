@@ -1,7 +1,14 @@
 require('dotenv').config()
-const express = require('express');
+const http = require('http');
 const path = require('path');
+const express = require('express');
 const app = express();
+const httpServer = http.createServer(app);
+const port = process.env.PORT || 3000;
+
+// 初始化Socket.IO
+const socketManager = require('./common/socket.js');
+socketManager.init(httpServer);
 
 //json数据解析
 app.use(express.json());
@@ -15,10 +22,7 @@ app.use('/user', require('./interface/userapi.js'));
 app.use('/file', require('./interface/fileapi.js'));
 
 // 启动Express服务器
-const http = require('http');
-const server = http.createServer(app);
-const port = process.env.PORT || 3000;
-server.listen(port, () => {
+httpServer.listen(port, () => {
   console.log(`
     Node服务运行于 http://localhost:${port}
     按 Ctrl+C 键退出服务

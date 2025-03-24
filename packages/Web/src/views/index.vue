@@ -1,6 +1,6 @@
 <template>
   <div id="BoxList">
-    <div class="box">
+    <div class="box" @click="goDesktop">
       <span>桌面查看</span>
     </div>
     <div class="box" @click="goinfiles">
@@ -10,51 +10,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { io } from 'socket.io-client';
-import { showNotify } from 'vant';
-import axios from 'axios';
 import { router } from '@/modules/router';
 import { UserInfo } from '@/apis' 
 
-// socket
-const socketStatus = ref(true)
-const captureImg = ref('')
-let socket = null;
-// 初始化socket
-const initSocket = ()=>{
-  if (socket) {
-    console.log('Socket链接已存在');
-    return;
-  }
-  try {
-    // const host = window.location.hostname;
-    // const port = 3000;
-    // const url = `http://${host}:${port}`;
-    const socket = io('/',{
-      reconnection: true, // 启用重连
-      reconnectionAttempts: 3, // 重连尝试次数
-      reconnectionDelay: 1000, // 重连间隔时间（毫秒）
-      reconnectionDelayMax: 5000, // 最大重连间隔时间（毫秒）
-      timeout: 10000, // 连接超时时间（毫秒）
-    })
-    socket.on('connect', () => {
-      socketStatus.value = true
-      socket.emit('capture')
-    });
-    socket.on('capture', (data) => {
-      captureImg.value = `data:image/png;base64,${data}`;
-      socket.disconnect()
-    });
-    socket.on('connect_error', (error) => {
-      showNotify({ type: 'danger', message: '连接Socket服务失败，尝试重连...' });
-      socketStatus.value = false
-    });
-  } catch (error) {
-    console.log(error)
-  }
-}
-
+// 获取用户信息
 const getUserInfo = ()=>{
   UserInfo().then(res=>{
     if(res.code === 200){
@@ -70,17 +29,11 @@ const getUserInfo = ()=>{
 const goinfiles = ()=>{
   router.push('/FileList')
 }
-const files = reactive({
-  list: []
-})
-const initfiles = ()=>{
-  axios.get('/api/files').then(res=>{
-    files.list = res.data
-  })
+const goDesktop = ()=>{
+  router.push('/Desktop')
 }
+
 onMounted(() => {
-  // initSocket();
-  // initfiles()
   getUserInfo()
 });
 

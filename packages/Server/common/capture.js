@@ -1,5 +1,5 @@
-import {Monitor} from 'node-screenshots'
-import sharp from 'sharp'
+const {Monitor} = require('node-screenshots')
+const sharp = require('sharp')
 
 const windows = Monitor.all() 
 function toCapture(socket){
@@ -15,16 +15,18 @@ function toCapture(socket){
     })
 }
 let Interval
-export function capture (socket){
+function capture (socket){
     toCapture(socket)
 }
 
-export function captureing(socket,time=1000){
+function captureing(socket,time=1000){
     toCapture(socket)
     Interval = setInterval(()=>{
         toCapture(socket)
     },time)
 }
-export function closeCapture(){
+function closeCapture(){
     clearInterval(Interval)
 }
+
+module.exports = {capture,captureing,closeCapture}
