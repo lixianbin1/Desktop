@@ -1,10 +1,10 @@
 <template>
-  <RouterView />
+  <RouterView :key="$route.fullPath"/>
 </template>
 
 <script setup >
   import {useRoute,useRouter} from 'vue-router'
-  // const route = useRoute()
+  const route = useRoute()
   const router = useRouter()
 
   //路由转跳前业务逻辑

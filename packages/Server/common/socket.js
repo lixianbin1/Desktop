@@ -18,7 +18,9 @@ const init = (httpServer) => {
     socket.on('capture', (msg) => {
       capture(socket);
     });
-
+    socket.on('captureing', (msg) => {
+      captureing(socket);
+    });
     socket.on('takeclose', () => {
       closeCapture();
     });

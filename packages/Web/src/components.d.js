@@ -18,6 +18,7 @@ declare module 'vue' {
     GoBack: typeof import('./components/GoBack.vue')['default']
     Header: typeof import('./components/Header.vue')['default']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
+    IconCarbonCenterToFit: typeof import('~icons/carbon/center-to-fit')['default']
     IconCarbonLogout: typeof import('~icons/carbon/logout')['default']
     IconCarbonUser: typeof import('~icons/carbon/user')['default']
     IconEpConnection: typeof import('~icons/ep/connection')['default']

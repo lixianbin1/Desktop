@@ -2,7 +2,7 @@ const {Monitor} = require('node-screenshots')
 const sharp = require('sharp')
 
 const windows = Monitor.all() 
-function toCapture(socket){
+function toCapture(socket,key = 'capture'){
     windows.forEach(item => {
         item.captureImage().then(async (data) => {
             const image = await data.toPng()
@@ -10,7 +10,7 @@ function toCapture(socket){
                 quality:10
             }).toBuffer()
             const base64 = sharping.toString('base64')
-            socket.emit('capture', base64)
+            socket.emit(key, base64)
         })
     })
 }
@@ -20,9 +20,9 @@ function capture (socket){
 }
 
 function captureing(socket,time=1000){
-    toCapture(socket)
+    toCapture(socket,'captureing')
     Interval = setInterval(()=>{
-        toCapture(socket)
+        toCapture(socket,'captureing')
     },time)
 }
 function closeCapture(){

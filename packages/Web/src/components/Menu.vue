@@ -43,13 +43,13 @@ watch(() => userInfo.value, (val) => {
 },{immediate:true})
 
 // MenuList菜单数据
-const menuList: any = reactive({
+const menuList = reactive({
   list: [],
 })
 
 //设置菜单
-const useInfoMenu: any = useGlobalMenu()
-const setMenu = (roles: Array<String>) => {
+const useInfoMenu = useGlobalMenu()
+const setMenu = (roles) => {
   if (roles) {
     isShow.show = true
     if (roles.includes('admin')) {

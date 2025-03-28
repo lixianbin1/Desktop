@@ -37,14 +37,6 @@ onMounted(() => {
   getUserInfo()
 });
 
-onBeforeUnmount(() => {
-  if (socket) {
-    socket.off('connect'); // 移除 connect 事件监听器
-    socket.off('capture'); // 移除 capture 事件监听器
-    socket.disconnect(); // 关闭连接
-    socket = null;
-  }
-});
 </script>
 
 <style setup lang="scss">

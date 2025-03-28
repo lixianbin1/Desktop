@@ -19,3 +19,5 @@ export const useLocaleUser = createGlobalState(()=>{
 export const useUserInfo = createGlobalState(()=>useStorage('userInfo',{},sessionStorage))
 
 export const useGlobalMenu = createGlobalState(()=>useStorage('userMenu',{},sessionStorage))
+
+export const useFullscreen = createGlobalState(()=>useStorage('fullscreen',false,sessionStorage))
