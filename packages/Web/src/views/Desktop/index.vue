@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div id="socket">
     <div class="box-header" v-if="!isFullscreen">
       <GoBack />
-      <el-button type="success" >刷新</el-button>
-      <el-button type="danger" >重连</el-button>
+      <el-button type="danger" @click="CloseSocket" >断开</el-button>
+      <el-button type="primary" @click="Reconnect">重连</el-button>
     </div>
     <div id="fullBox" :class="{'box-desktop':true,'fullscreen': isFullscreen}">
       <canvas ref="canvas" style="width:100vw;height:56.24vw;vertical-align: bottom;" id="tvNoise"></canvas>
@@ -51,34 +51,54 @@ const initSocket = ()=>{
     return;
   }
   try {
+    const token = localStorage.getItem('userToken');
     // const host = window.location.hostname;
     // const port = 3000;
     // const url = `http://${host}:${port}`;
-    const socket = io('/',{
+    socket = io('/',{
       reconnection: true, // 启用重连
       reconnectionAttempts: 3, // 重连尝试次数
       reconnectionDelay: 1000, // 重连间隔时间（毫秒）
       reconnectionDelayMax: 5000, // 最大重连间隔时间（毫秒）
       timeout: 10000, // 连接超时时间（毫秒）
+      auth: { token: token }
     })
     socket.on('connected', () => {
       socketStatus.value = true
       filelist.value.push({name:'远程连接成功，桌面准备中...',mtime:new Date().toLocaleString()})
-      // socket.emit('capture')
-      // socket.emit('captureing')
+      socket.emit('capture')
     });
     socket.on('capture', (data) => {
       captureTo(data)
       filelist.value.push({name:'桌面准备完毕。',mtime:new Date().toLocaleString()})
-
+      socket.emit('captureing')
+      filelist.value.push({name:'监控中...',mtime:new Date().toLocaleString()})
     });
     socket.on('captureing',(data)=>{
       captureTo(data)
-      filelist.value.push({name:'监控中...',mtime:new Date().toLocaleString()})
     })
     socket.on('connect_error', (error) => {
       filelist.value.push({name:'连接Socket服务失败，尝试重连...',mtime:new Date().toLocaleString()})
       socketStatus.value = false
+    });
+
+    socket.on('disconnect', (reason) => {
+      if (reason === 'io server disconnect') {
+        // 服务器主动断开连接
+        filelist.value.push({ name: '服务器主动断开连接', mtime: new Date().toLocaleString() });
+      } else if (reason === 'io client disconnect') {
+        // 客户端主动断开连接
+        filelist.value.push({ name: '客户端主动断开连接', mtime: new Date().toLocaleString() });
+      } else {
+        // 其他原因断开连接
+        filelist.value.push({ name: `连接断开: ${reason}`, mtime: new Date().toLocaleString() });
+      }
+      socketStatus.value = false;
+    });
+
+    socket.on('error', (error) => {
+      filelist.value.push({ name: `错误: ${error}`, mtime: new Date().toLocaleString() });
+      socketStatus.value = false;
     });
   } catch (error) {
     console.log(error)
@@ -115,16 +135,18 @@ const fullscreenChange = () => {
   const appEl = document.getElementById('app');
   if (isFullscreen.value && canvas.value) {
     const boxHeight = fullBox.offsetHeight;
+    const boxWidth = fullBox.offsetWidth;
     //计算缩放比例
     const scale = Math.min(
       window.innerWidth / fullBox.offsetHeight,
       window.innerHeight / fullBox.offsetWidth
     );
-    const length = (window.innerWidth - boxHeight*scale)/2
+    const lengthX = (window.innerHeight - boxWidth*scale)/2/scale
+    const lengthY = (window.innerWidth - boxHeight*scale)/2
     fullBox.style.transform = `
       rotate(90deg)
       scale(${scale})
-      translate(0px, ${- boxHeight - length}px)
+      translate(${lengthX}px, ${- boxHeight - lengthY}px)
     `;
     fullBox.style.transformOrigin = '0 0';
     appEl.style.overflow = 'hidden';
@@ -132,7 +154,21 @@ const fullscreenChange = () => {
     fullBox.style.transform = '';
   }
 }
-
+// 断开
+const CloseSocket = () => {
+  if (socket) {
+    filelist.value.push({name:'断开监控',mtime:new Date().toLocaleString()})
+    socket.emit('takeclose')
+  }
+}
+// 重连
+const Reconnect = () => {
+  if (socket) {
+    filelist.value.push({name:'监控中...',mtime:new Date().toLocaleString()})
+    socket.emit('captureing')
+  }
+  initSocket()
+}
 onMounted(() => {
   generateNoise();
   initSocket()
@@ -154,6 +190,7 @@ onBeforeUnmount(() => {
     display: flex;
     padding: 0.2rem 0.1rem 0.1rem 0.1rem;
     margin: 0;
+    height: 0.8rem;
   }
   .box-desktop{
     position: relative;
@@ -168,7 +205,7 @@ onBeforeUnmount(() => {
   }
 
   #box-list {
-    height: calc(100% - 60px);
+    height: calc(100vh - 56.24vw - 2.2rem);
     width: 100%;
     padding: 0.1rem;
     box-sizing: border-box;

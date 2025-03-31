@@ -125,10 +125,7 @@ onMounted(() => {
   getFileList();
 })
 
-// 监听路由变化
-onBeforeRouteUpdate((to, from) => {
-  getFileList(true,to.query.name);
-})
+
 </script>
   
 <style lang="scss" scoped>
